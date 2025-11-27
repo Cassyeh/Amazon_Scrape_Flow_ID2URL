@@ -1,0 +1,43 @@
+# Byte-compiled Python files
+__pycache__/
+*.py[cod]
+
+# Virtual environment folders
+venv/
+.env/
+env/
+ENV/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Hugging Face cached datasets
+data/raw/*_data/
+
+# Dataset and large files
+*.csv
+*.json
+*.parquet
+*.zip
+*.tar.gz
+
+# Logs
+*.log
+
+# IDE and editor files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Python packaging
+*.egg-info/
+dist/
+build/
+
+# Pytest cache
+.pytest_cache/
