@@ -8,8 +8,6 @@ def transform_dataset(dataset, split: str = 'train'):
     Args:
         dataset (datasets.DatasetDict): Hugging Face dataset object
         split (str, optional): Which split to use (default 'train')
-        drop_duplicates (bool, optional): Whether to drop duplicate rows (default True)
-        filter_verified (bool, optional): Whether to filter only verified purchases (default True)
     
     Returns:
         pd.DataFrame: Transformed DataFrame
@@ -46,3 +44,9 @@ def transform_dataset(dataset, split: str = 'train'):
     print(f"Time taken for transformation: {end_time - start_time:.2f} seconds")
 
     return df
+
+""" EXAMPLE USAGE
+from datasets import load_dataset
+dataset_name = "kevykibbz/Amazon_Customer_Review_2023"
+dataset = load_dataset(dataset_name)
+df_cleaned = transform_dataset(dataset, split='train') """
