@@ -37,3 +37,39 @@ The goal is to showcase how data can be cleaned, processed, and stored to derive
 ## Ultimate Business Purpose
 
 The ultimate purpose of this pipeline is to **identify and list the top 10000 products** with the **highest frequency of 5-star ratings** from the **Amazon Customer Reviews** dataset. This can help businesses identify their **best-performing products**, allowing for better decision-making, targeted marketing, and product strategy.
+
+## Table of Contents
+1. [Project Overview](#project-overview)
+2. [Technology Stack](#technology-stack)
+3. [Dataset Description](#dataset-description)
+---
+
+## Project Overview
+The ETL pipeline will:
+1. **Extract**: Load data from Hugging Face's `Amazon Customer Review` dataset.
+2. **Transform**: Filter out products with a 5-star rating and count how many times each product (ASIN) has received a 5-star review, augment with URLs/product names from the web.
+3. **Load**: Schema creation (tables, data types, PKs, FKs), Store the data in an **SQLite database**.
+4. **POST-processing and Reporting**: After processing, the top 10000 products with the highest number of 5-star reviews will be displayed.
+---
+
+## Technology Stack
+- **Python**: Programming language for data extraction, transformation, and loading.
+- **Hugging Face `datasets` library**: For loading and caching the Amazon Customer Review dataset.
+- **SQLite**: A lightweight database for storing and querying processed data.
+- **Pandas**: For data manipulation and transformation (e.g., filtering, counting).
+- **SQLite3**: For interacting with the SQLite database in Python.
+---
+
+## Dataset Description
+The **Amazon Customer Review** dataset contains product reviews, with attributes such as:
+- **`asin`**: The unique identifier for each product.
+- **`star_rating`**: The star rating given by the customer (ranging from 1 to 5 stars).
+
+The data used is extracted from **Hugging Face**, and it includes review data for various products on Amazon. 
+This dataset is a subset of [HuggingFace kevykibbz Dataset](https://huggingface.co/datasets/kevykibbz/Amazon_Customer_Review_2023).
+
+Sample Record :
+```
+{"rating": 5, "title": "Excellent!", "text": "I love it. Pretty!", "images": [], "asin": "B00NXQLFQQ", "parent_asin": "B00NXQLFQQ", "user_id": "AFKZENTNBQ7A7V7UXW5JJI6UGRYQ", "timestamp": 1.52309e+12, "helpful_vote": 0, "verified_purchase": true}
+```
+The dataset is typically split into `train` and `test` splits, and the `train` split is used for this project.
