@@ -57,3 +57,10 @@ def extract_huggingface_dataset(dataset_name: str, dataset_folder: str = './data
             print("Warning: 'train' split not found in the dataset.")
     
     return dataset
+
+""" EXAMPLE USAGE
+from extract_dataset import extract_huggingface_dataset
+
+dataset_name = "kevykibbz/Amazon_Customer_Review_2023"
+dataset = extract_huggingface_dataset(dataset_name)
+"""
