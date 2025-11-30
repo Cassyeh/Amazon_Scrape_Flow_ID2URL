@@ -20,6 +20,7 @@ data/raw/*_data/
 *.parquet
 *.zip
 *.tar.gz
+*.duckdb
 
 # Logs
 *.log

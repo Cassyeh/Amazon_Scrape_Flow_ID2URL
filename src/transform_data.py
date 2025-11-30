@@ -31,7 +31,7 @@ def transform_dataset(parquet_dataset_path):
     print(f"Number of rows: {num_rows_df}")
     print(f"Number of columns: {num_columns_df}")
 
-    # Deduplicate directly from Parquet path and write to a new Parquet file
+    # Deduplicate directly from Parquet path
     con.execute(f"""
     CREATE TABLE {table_name} AS
     SELECT DISTINCT * 

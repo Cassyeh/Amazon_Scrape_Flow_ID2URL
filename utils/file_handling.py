@@ -37,3 +37,32 @@ dataset_name = "kevykibbz/Amazon_Customer_Review_2023"
 parquet_path = "./data/output/amazon_reviews_table.parquet"
 
 parquet_path = load_hf_dataset_as_parquet(dataset_name, parquet_dataset_path=parquet_path) """
+
+
+def polars_to_parquet(df: pl.DataFrame, parquet_df_file_path: str = "./data/output/df_file.parquet"):
+    """
+    Save a Polars DataFrame to a Parquet file.
+
+    Args:
+        df (pl.DataFrame): The Polars DataFrame to save.
+        parquet_df_file_path (str): Path to the Parquet file to create.
+
+    Returns:
+        str: Path to the saved Parquet file.
+    """
+
+    # Ensure the file output directory exists
+    os.makedirs(os.path.dirname(parquet_df_file_path), exist_ok=True)
+
+    # Write df to parquet if it doesn't exist
+    if not os.path.isfile(parquet_df_file_path):
+        print(f"Parquet file {parquet_df_file_path} does not exist.")
+        df.write_parquet(parquet_df_file_path, compression="snappy")
+        print(f"✔ DataFrame saved to Parquet successfully: {parquet_df_file_path}")
+    else:
+        print(f"Parquet file {parquet_df_file_path} already exists. Skipping download.")
+
+    return parquet_df_file_path
+
+# EXAMPLE USAGE
+# polars_to_parquet(df, "data/my_table.parquet")
