@@ -39,7 +39,7 @@ parquet_path = "./data/output/amazon_reviews_table.parquet"
 parquet_path = load_hf_dataset_as_parquet(dataset_name, parquet_dataset_path=parquet_path) """
 
 
-def polars_to_parquet(df: pl.DataFrame, parquet_df_file_path: str = "./data/output/df_file.parquet"):
+def polars_to_parquet(df: pl.DataFrame, parquet_df_file_path: str = "./data/output/"):
     """
     Save a Polars DataFrame to a Parquet file.
 

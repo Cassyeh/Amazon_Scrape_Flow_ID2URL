@@ -8,6 +8,9 @@ venv/
 env/
 ENV/
 
+#specific file
+*web_scraping.py
+
 # Jupyter Notebook checkpoints
 .ipynb_checkpoints/
 
@@ -21,6 +24,7 @@ data/raw/*_data/
 *.zip
 *.tar.gz
 *.duckdb
+*.xlsx
 
 # Logs
 *.log
