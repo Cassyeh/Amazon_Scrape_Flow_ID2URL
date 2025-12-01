@@ -32,7 +32,7 @@ Product_Name: Stanley Quencher H2.0 Tumbler with Handle and Straw 30 oz | Flowst
 URL: https://www.amazon.ca/Stanley-Quencher-FlowState-Stainless-Insulated/dp/B0CJZMP7L1
 ```
 
-The goal is to showcase how data can be cleaned, processed, and stored to derive actionable business insights.
+The goal is to showcase how data can be fetched, cleaned, processed, and stored to derive actionable business insights.
 
 ## Ultimate Business Purpose
 
@@ -48,16 +48,16 @@ The ultimate purpose of this pipeline is to **identify and list the top 10000 pr
 The ETL pipeline will:
 1. **Extract**: Load data from Hugging Face's `Amazon Customer Review` dataset.
 2. **Transform**: Filter out products with a 5-star rating and count how many times each product (ASIN) has received a 5-star review, augment with URLs/product names from the web.
-3. **Load**: Schema creation (tables, data types, PKs, FKs), Store the data in an **SQLite database**.
-4. **POST-processing and Reporting**: After processing, the top 10000 products with the highest number of 5-star reviews will be displayed.
+3. **Load**: Schema creation (tables, data types, PKs, FKs), Store the data in a **DuckDB database**.
+4. **POST-processing and Reporting**: After processing, the top 10000 products with the highest number of 5-star reviews, their product names and urls  will be stored into a new table for analysis.
 ---
 
 ## Technology Stack
 - **Python**: Programming language for data extraction, transformation, and loading.
 - **Hugging Face `datasets` library**: For loading and caching the Amazon Customer Review dataset.
-- **SQLite**: A lightweight database for storing and querying processed data.
-- **Pandas**: For data manipulation and transformation (e.g., filtering, counting).
-- **SQLite3**: For interacting with the SQLite database in Python.
+- **DuckDB**: An in-process analytical database optimized for fast OLAP-style queries on large datasets; used for storage.
+- **Pandas**: Used to export analyticl query results to Excel files, a bridge between DuckDB data and spreadsheet output.
+- **Requests**: For parsing HTML and extracting targeted webpage data.
 ---
 
 ## Dataset Description
@@ -73,3 +73,34 @@ Sample Record :
 {"rating": 5, "title": "Excellent!", "text": "I love it. Pretty!", "images": [], "asin": "B00NXQLFQQ", "parent_asin": "B00NXQLFQQ", "user_id": "AFKZENTNBQ7A7V7UXW5JJI6UGRYQ", "timestamp": 1.52309e+12, "helpful_vote": 0, "verified_purchase": true}
 ```
 The dataset is typically split into `train` and `test` splits, and the `train` split is used for this project.
+
+## Steps in the Pipeline
+
+1. **Download and Cache the Dataset**:
+   - Use the `load_dataset` function from Hugging Face's `datasets` library to fetch the Amazon Customer Review dataset.
+   - Cache the dataset to avoid repeated downloads. 
+   DatasetDict({
+    train: Dataset({
+        features: ['rating', 'title', 'text', 'images', 'asin', 'parent_asin', 'user_id', 'timestamp', 'helpful_vote', 'verified_purchase'],
+        num_rows: 33913690
+    })
+})
+Number of rows in the 'train' split: 33913690
+Number of rows in the dataset: 33913690
+
+2. **Transform the Data**:
+   - Filter the dataset to only include reviews with a **5-star rating** verified purchases==True.
+   - Remove duplicates and records with null product IDs.
+   - Clean up text by converting to lowercase and removing extra spaces in columns title and text.
+   - Converted the Unix timestamp to a readable datetime format.
+   - Group the data by the **`asin` (product ID)** and count the occurrences of 5-star reviews for each product.
+
+3. **Load Data into DuckDB**:
+   - Store the cleaned data into an **DuckDB database** preserving all columns.
+   - Create a table in SQLite with two columns: `asin` and `five_star_count`.
+
+4. **Post-Processing: Display the Top 10000 Products and store in table**:
+   - Query the table in database to retrieve the top 10000 products based on the highest count of 5-star ratings.
+   - Display the results.
+   - Created a top product count table to store retrieved data.
+   - Retrieved product URLs and product names by querying the web using the asin values from the top products table, then populated the corresponding asin entries in the table with the retrieved data.
