@@ -136,7 +136,7 @@ The top 10000 products will be displayed in the console and also spooled to an e
 ## Database Tables
 <figure>
     <figcaption>Product Table</figcaption>
-    <img src="Images/Product_table.png">    
+    <img src="Images/Product_table.png" width="960" height="380">    
 </figure>
 
 ## Conclusion
