@@ -138,7 +138,7 @@ The top 10000 products will be displayed in the console and also spooled to an e
     <figcaption>Product Table</figcaption>
     <img src="images/Product_table.png" width="960" height="380">    
 </figure>
-<img src="images/logo.png" alt="Logo" width="80" height="80">
+
 ## Conclusion
 This project can be useful for businesses to:
 - Highlight the best products in marketing or advertising.
