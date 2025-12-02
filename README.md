@@ -104,3 +104,43 @@ Number of rows in the dataset: 33913690
    - Display the results.
    - Created a top product count table to store retrieved data.
    - Retrieved product URLs and product names by querying the web using the asin values from the top products table, then populated the corresponding asin entries in the table with the retrieved data.
+
+## Running the Pipeline
+
+### Step 1: Install Dependencies
+
+Make sure to install the required Python libraries by running:
+
+```bash
+pip install -r requirements.txt
+```
+
+### Step 2: Run the ETL Script
+After installing the dependencies, you can run the etl_main.py script to process the data, load it into an DuckDB database, and retrieve the top 10000 products.
+
+Run the script using:
+
+```bash
+python etl_main.py
+```
+
+This will
+- Download and cache the dataset.
+- Filter the data to keep only 5-star ratings.
+- Load the data into the amazon_sales_db.duckdb database.
+- Query and display the top 10000 products with the most 5-star reviews along with their amazon links.
+
+### Step 3: View the Results
+The top 10000 products will be displayed in the console and also spooled to an excel file, showing the asin (product ID), their links and the count of 5-star reviews for each product.
+
+## Database Tables
+<figure>
+    <figcaption>Product Table</figcaption>
+    <img src="Images/Product_table.png">    
+</figure>
+
+## Conclusion
+This project can be useful for businesses to:
+- Highlight the best products in marketing or advertising.
+- Analyze customer satisfaction and identify their most popular items.
+- Make data-driven decisions based on customer feedback.
